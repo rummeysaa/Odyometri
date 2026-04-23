@@ -22,3 +22,20 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+# --- Odyometri Projesi Özel Eklemeleri ---
+
+# Proteus & Simülasyon
+*.pdsbak
+*.DBK
+*.pdsprj.bak
+*.pdsprj.*.workspace
+
+# Arduino & Gömülü Sistemler
+/embedded-firmware/build/
+/embedded-firmware/bin/
+.vscode/arduino.json
+
+# JQF & JUnit Test Çıktıları
+.jqf/
+**/test-outputs/
+target/
