@@ -1,17 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.odyometri.ui.OdyogramController">
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.odyometri.ui.OdyogramController">
     <children>
-        <ScatterChart fx:id="chartOdyogram" layoutX="60.0" layoutY="60.0" prefHeight="530.0" prefWidth="730.0" legendVisible="false" animated="false">
-            <xAxis>
-                <NumberAxis fx:id="xAxis" side="TOP" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis fx:id="yAxis" side="LEFT" />
-            </yAxis>
-        </ScatterChart>
+      <HBox layoutX="60.0" layoutY="60.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="60.0">
+         <children>
+              <ScatterChart fx:id="chartOdyogram" animated="false" legendVisible="false" prefHeight="530.0" prefWidth="730.0" HBox.hgrow="ALWAYS">
+                  <xAxis>
+                      <NumberAxis side="TOP" fx:id="xAxis" />
+                  </xAxis>
+                  <yAxis>
+                      <NumberAxis fx:id="yAxis" side="LEFT" />
+                  </yAxis>
+              </ScatterChart>
+            <VBox minWidth="160.0" prefHeight="530.0" prefWidth="118.0" spacing="15.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <Label text="Ear Selection" />
+                  <ToggleButton fx:id="btnRightEar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" text="RIGHT (O)">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="earGroup" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="btnLeftEar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-text-fill: blue; -fx-font-weight: bold; -fx-font-size: 14px;" text="LEFT (X)" toggleGroup="$earGroup" />
+                  <Label text="Test Type" />
+                  <ToggleButton fx:id="btnAir" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Air">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="typeGroup" />
+                     </toggleGroup>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton fx:id="btnBone" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Bone" toggleGroup="$typeGroup">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <Button fx:id="btnClear" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: red;" text="Clear">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>
