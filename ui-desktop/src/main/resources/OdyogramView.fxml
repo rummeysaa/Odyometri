@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.odyometri.ui.OdyogramController">
+    <children>
+        <ScatterChart fx:id="chartOdyogram" layoutX="60.0" layoutY="60.0" prefHeight="530.0" prefWidth="730.0" legendVisible="false" animated="false">
+            <xAxis>
+                <NumberAxis fx:id="xAxis" side="BOTTOM" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="yAxis" side="LEFT" />
+            </yAxis>
+        </ScatterChart>
+    </children>
+</AnchorPane>
