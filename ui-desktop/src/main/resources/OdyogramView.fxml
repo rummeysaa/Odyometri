@@ -7,7 +7,7 @@
     <children>
         <ScatterChart fx:id="chartOdyogram" layoutX="60.0" layoutY="60.0" prefHeight="530.0" prefWidth="730.0" legendVisible="false" animated="false">
             <xAxis>
-                <NumberAxis fx:id="xAxis" side="BOTTOM" />
+                <NumberAxis fx:id="xAxis" side="TOP" />
             </xAxis>
             <yAxis>
                 <NumberAxis fx:id="yAxis" side="LEFT" />

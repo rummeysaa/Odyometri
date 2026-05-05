@@ -34,33 +34,43 @@ public class OdyogramController {
             public Number fromString(String string) { return 0; }
         });
 
-        // 2. Y-AXIS: -10'dan 120'ye (Klinik Standart)
+        // 2. Y-AXIS: MATEMATİKSEL İNVERSİYON
+        // Mantık: -120 en aşağıda (lower), 10 en yukarıda (upper) durur.
         yAxis.setAutoRanging(false);
-        yAxis.setLowerBound(-10);
-        yAxis.setUpperBound(120);
+        yAxis.setLowerBound(-120);
+        yAxis.setUpperBound(10);
         yAxis.setTickUnit(10);
-        yAxis.setMinorTickCount(0);
+        yAxis.setMinorTickVisible(false);
         yAxis.setLabel("Hearing Level (dB HL)");
 
-        // 3. GRAFİK AYARLARI (0 dB ve 250 Hz Çizgi Kontrolü)
-        chartOdyogram.setHorizontalZeroLineVisible(true);  // Yatay 0 dB çizgisini aç
-        chartOdyogram.setVerticalZeroLineVisible(false);    // 250 Hz'deki dikey kalın çizgiyi SİL
+        // 3. YAZI DÜZELTME (Sihir Burada)
+        // Ekranda -40 yerine 40 görünmesi için değeri -1 ile çarpıyoruz.
+        yAxis.setTickLabelFormatter(new StringConverter<Number>() {
+            @Override
+            public String toString(Number object) {
+                int val = object.intValue();
+                // -10'u 10, -40'ı 40, 0'ı 0 yapar.
+                return String.valueOf(-val);
+            }
+            @Override
+            public Number fromString(String string) { return 0; }
+        });
 
-        // 4. KLİNİK İNVERSİYON (Double Flip)
-        chartOdyogram.setScaleY(-1); // Grafiği takla attır (-10 yukarı, 120 aşağı)
-        xAxis.setScaleY(-1);        // Yazıları düzelt
-        yAxis.setScaleY(-1);        // Yazıları düzelt
+        // 4. GRAFİK AYARLARI
+        // Hiçbir şeyi ters çevirmiyoruz (setScaleY falan yok!), yazılar jilet gibi düz kalıyor.
+        chartOdyogram.setHorizontalZeroLineVisible(true);
+        chartOdyogram.setVerticalZeroLineVisible(false);
 
-        // 5. FONT VE SİYAH ÇİZGİ STİLİ (Beyaz Ekran Vermeyen Güvenli Yol)
         Font boldFont = Font.font("Arial", FontWeight.BOLD, 15);
         xAxis.setTickLabelFont(boldFont);
         yAxis.setTickLabelFont(boldFont);
 
-        // 0 dB çizgisini siyaha ve ızgaraları belirgin hale getiren CSS
+        // 5. STİL: 0 dB Çizgisi
+        // Sistem matematiksel olarak 0 noktasını bildiği için bu CSS çizgiyi tam yerine çizer.
         chartOdyogram.setStyle(
-                ".chart-horizontal-zero-line { -fx-stroke: black; -fx-stroke-width: 2px; }" +
-                        ".chart-vertical-grid-lines { -fx-stroke: #e0e0e0; }" +
-                        ".chart-horizontal-grid-lines { -fx-stroke: #e0e0e0; }"
+                ".chart-horizontal-zero-line { -fx-stroke: black; -fx-stroke-width: 2.5px; }" +
+                        ".chart-vertical-grid-lines { -fx-stroke: #f0f0f0; }" +
+                        ".chart-horizontal-grid-lines { -fx-stroke: #f0f0f0; }"
         );
     }
 }
