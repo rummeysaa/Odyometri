@@ -14,7 +14,7 @@ public class MainApp extends Application {
         stage.setResizable(false); // Klinik cihaz havası için boyutu sabitleyebilirsin
         stage.setScene(scene);
 
-        
+
         stage.setMinWidth(1000);
         stage.setMinHeight(650);
 
