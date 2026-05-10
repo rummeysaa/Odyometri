@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="650.0" prefWidth="1450.0" style="-fx-background-color: #ffffff;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.odyometri.ui.OdyogramController">
+    <children>
+        <HBox layoutX="40.0" layoutY="40.0" spacing="20.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+            <children>
+                <LineChart fx:id="chartOdyogram" animated="false" createSymbols="true" legendVisible="false" prefHeight="570.0" prefWidth="690.0" HBox.hgrow="ALWAYS">
+                    <xAxis>
+                        <NumberAxis side="TOP" fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="yAxis" side="LEFT" />
+                    </yAxis>
+                </LineChart>
+
+                <HBox spacing="25.0">
+                    <children>
+                        <VBox alignment="TOP_CENTER" minWidth="160.0" spacing="15.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" text="TEST MODE" />
+                                <ToggleButton fx:id="btnAir" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Air">
+                                    <toggleGroup><ToggleGroup fx:id="typeGroup" /></toggleGroup>
+                                </ToggleButton>
+                                <ToggleButton fx:id="btnBone" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Bone" toggleGroup="$typeGroup" />
+
+                                <Label style="-fx-font-weight: bold;" text="VOLUME (dB HL)">
+                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
+                                </Label>
+                                <Spinner fx:id="spinnerDb" prefHeight="45.0" prefWidth="130.0" />
+
+                                <Button fx:id="btnHeard" mnemonicParsing="false" prefHeight="112.0" prefWidth="160.0" text="Heard">
+                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
+                                </Button>
+                            </children>
+                        </VBox>
+
+                        <VBox alignment="TOP_CENTER" minWidth="160.0" spacing="15.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" text="EAR SELECTION" />
+                                <ToggleButton fx:id="btnRightEar" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="RIGHT (O)">
+                                    <toggleGroup><ToggleGroup fx:id="earGroup" /></toggleGroup>
+                                </ToggleButton>
+                                <ToggleButton fx:id="btnLeftEar" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="LEFT (X)" toggleGroup="$earGroup" />
+
+                                <Label style="-fx-font-weight: bold;" text="FREQUENCY (Hz)">
+                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
+                                </Label>
+                                <ChoiceBox fx:id="cbFrequency" prefHeight="45.0" prefWidth="130.0" />
+
+                                <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Play Sound">
+                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
+                                </Button>
+                                <Button fx:id="btnClear" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Clear" />
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets top="40.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
