@@ -22,6 +22,13 @@
     </properties>
 
     <dependencies>
+        <!-- jSerialComm -->
+        <dependency>
+            <groupId>com.fazecast</groupId>
+            <artifactId>jSerialComm</artifactId>
+            <version>2.10.4</version>
+        </dependency>
+
         <!-- JUnit 5 API (testleri yazmak için) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
