@@ -1,4 +1,4 @@
-package audiometer;
+package audiometry;
 
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;

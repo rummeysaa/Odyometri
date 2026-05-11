@@ -1,6 +1,6 @@
         //Kodun çalışıp çalışmadığını test etmek için kullandığım ekstra bir döküman.
 
-package audiometer;
+package audiometry;
 
 import javax.swing.*;
 import java.awt.*;
