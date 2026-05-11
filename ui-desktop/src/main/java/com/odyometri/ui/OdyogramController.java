@@ -10,19 +10,31 @@ import javafx.scene.text.FontWeight;
 import javafx.util.StringConverter;
 
 public class OdyogramController {
-    @FXML private LineChart<Number, Number> chartOdyogram;
-    @FXML private NumberAxis xAxis;
-    @FXML private NumberAxis yAxis;
+    @FXML
+    private LineChart<Number, Number> chartOdyogram;
+    @FXML
+    private NumberAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
 
-    @FXML private ChoiceBox<String> cbFrequency;
-    @FXML private Spinner<Integer> spinnerDb;
-    @FXML private ToggleButton btnRightEar;
-    @FXML private ToggleButton btnLeftEar;
-    @FXML private ToggleButton btnAir;
-    @FXML private ToggleButton btnBone;
-    @FXML private Button btnClear;
-    @FXML private Button btnHeard;
-    @FXML private Button btnPlay;
+    @FXML
+    private ChoiceBox<String> cbFrequency;
+    @FXML
+    private Spinner<Integer> spinnerDb;
+    @FXML
+    private ToggleButton btnRightEar;
+    @FXML
+    private ToggleButton btnLeftEar;
+    @FXML
+    private ToggleButton btnAir;
+    @FXML
+    private ToggleButton btnBone;
+    @FXML
+    private Button btnClear;
+    @FXML
+    private Button btnHeard;
+    @FXML
+    private Button btnPlay;
 
     // --- 2. VERİ SERİLERİNİ TANIMLIYORUZ (Sınıf düzeyinde olmalı) ---
     private XYChart.Series<Number, Number> rightAirSeries = new XYChart.Series<>();
@@ -33,7 +45,7 @@ public class OdyogramController {
     @FXML
     public void initialize() {
         // 3. EKSEN AYARLARI (Senin yazdığın kısımlar aynen kalıyor)
-        String[] frequencies = {"250", "500", "1k", "2k", "4k", "8k"};
+        String[] frequencies = { "250", "500", "1k", "2k", "4k", "8k" };
         xAxis.setAutoRanging(false);
         xAxis.setLowerBound(-1);
         xAxis.setUpperBound(6);
@@ -42,17 +54,22 @@ public class OdyogramController {
         xAxis.setLabel("Frequency (Hz)");
 
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
-            @Override public String toString(Number object) {
+            @Override
+            public String toString(Number object) {
                 int index = object.intValue();
-                if (index >= 0 && index < frequencies.length) return frequencies[index];
+                if (index >= 0 && index < frequencies.length)
+                    return frequencies[index];
                 return "";
             }
-            @Override public Number fromString(String string) { return 0; }
+
+            @Override
+            public Number fromString(String string) {
+                return 0;
+            }
         });
         Font labelFont = Font.font("Arial", FontWeight.BOLD, 16);
         xAxis.setTickLabelFont(labelFont);
         yAxis.setTickLabelFont(labelFont);
-
 
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(-120);
@@ -62,17 +79,26 @@ public class OdyogramController {
         yAxis.setLabel("Hearing Level (dB HL)");
 
         yAxis.setTickLabelFormatter(new StringConverter<Number>() {
-            @Override public String toString(Number object) {
+            @Override
+            public String toString(Number object) {
                 return String.valueOf(-object.intValue());
             }
-            @Override public Number fromString(String string) { return 0; }
+
+            @Override
+            public Number fromString(String string) {
+                return 0;
+            }
         });
 
         // 4. GRAFİK VE SERİ BAĞLANTISI
         chartOdyogram.setHorizontalZeroLineVisible(true);
         chartOdyogram.setVerticalZeroLineVisible(false);
         // SERİLERİ GRAFİĞE EKLEYELİM:
-        chartOdyogram.getData().addAll(rightAirSeries, rightBoneSeries, leftAirSeries, leftBoneSeries);
+        chartOdyogram.getData().add(rightAirSeries);
+        chartOdyogram.getData().add(rightBoneSeries);
+        chartOdyogram.getData().add(leftAirSeries);
+        chartOdyogram.getData().add(leftBoneSeries);
+
         // 5. CHOICEBOX VE SPINNER BAŞLATMA
         cbFrequency.getItems().addAll(frequencies);
         cbFrequency.getSelectionModel().select(0);
@@ -114,9 +140,8 @@ public class OdyogramController {
             targetSeries.getData().add(newData);
 
             // Sırala
-            targetSeries.getData().sort((d1, d2) ->
-                    Integer.compare(d1.getXValue().intValue(), d2.getXValue().intValue())
-            );
+            targetSeries.getData()
+                    .sort((d1, d2) -> Integer.compare(d1.getXValue().intValue(), d2.getXValue().intValue()));
         });
 
         // 8. CLEAR BUTONU (Tüm serileri ve çizgileri sıfırlar)
@@ -130,7 +155,10 @@ public class OdyogramController {
             chartOdyogram.getData().clear();
 
             // 3. Tertemiz serileri grafiğe geri bağla (Yeni test için hazırla)
-            chartOdyogram.getData().addAll(rightAirSeries, rightBoneSeries, leftAirSeries, leftBoneSeries);
+            chartOdyogram.getData().add(rightAirSeries);
+            chartOdyogram.getData().add(rightBoneSeries);
+            chartOdyogram.getData().add(leftAirSeries);
+            chartOdyogram.getData().add(leftBoneSeries);
 
         });
     }
