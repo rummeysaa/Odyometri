@@ -4,74 +4,106 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1450.0" style="-fx-background-color: #ffffff;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.odyometri.ui.OdyogramController">
+<AnchorPane prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: #ffffff;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.odyometri.ui.OdyogramController">
     <children>
-        <HBox layoutX="40.0" layoutY="40.0" spacing="20.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+        <VBox layoutX="20.0" layoutY="20.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <LineChart fx:id="chartOdyogram" animated="false" createSymbols="true" legendVisible="false" prefHeight="570.0" prefWidth="690.0" HBox.hgrow="ALWAYS">
-                    <xAxis>
-                        <NumberAxis side="TOP" fx:id="xAxis" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis fx:id="yAxis" side="LEFT" />
-                    </yAxis>
-                </LineChart>
 
-                <HBox spacing="25.0">
+                <!-- 1. ÜST PANEL: Serial Connection -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-border-color: lightgray; -fx-padding: 15; -fx-border-radius: 5;">
                     <children>
-                        <VBox alignment="TOP_CENTER" minWidth="160.0" spacing="15.0">
-                            <children>
-                                <Label style="-fx-font-weight: bold;" text="TEST MODE" />
-                                <ToggleButton fx:id="btnAir" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Air">
-                                    <toggleGroup><ToggleGroup fx:id="typeGroup" /></toggleGroup>
-                                </ToggleButton>
-                                <ToggleButton fx:id="btnBone" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Bone" toggleGroup="$typeGroup" />
+                        <Label style="-fx-font-weight: bold; -fx-background-color: white; -fx-translate-y: -25;" text="Serial Connection" />
+                        <Label text="Port:" />
+                        <ComboBox fx:id="cbPort" prefWidth="100.0" />
+                        <Button fx:id="btnRefreshPorts" text="↻" style="-fx-padding: 2 6 2 6; -fx-font-size: 12px;" />
+                        <Label text="Baud:" />
+                        <ComboBox fx:id="cbBaud" prefWidth="100.0" />
+                        <Button fx:id="btnConnect" text="Connect" />
+                        <Button fx:id="btnDisconnect" text="Disconnect" disable="true" />
 
-                                <Label style="-fx-font-weight: bold;" text="VOLUME (dB HL)">
-                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
-                                </Label>
-                                <Spinner fx:id="spinnerDb" prefHeight="45.0" prefWidth="130.0" />
+                        <Label fx:id="lblConnectionStatus" style="-fx-text-fill: red; -fx-font-weight: bold;" text="Disconnected" />
 
-                                <Button fx:id="btnHeard" mnemonicParsing="false" prefHeight="112.0" prefWidth="160.0" text="Heard">
-                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
-                                </Button>
-                            </children>
-                        </VBox>
-
-                        <VBox alignment="TOP_CENTER" minWidth="160.0" spacing="15.0">
-                            <children>
-                                <Label style="-fx-font-weight: bold;" text="EAR SELECTION" />
-                                <ToggleButton fx:id="btnRightEar" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="RIGHT (O)">
-                                    <toggleGroup><ToggleGroup fx:id="earGroup" /></toggleGroup>
-                                </ToggleButton>
-                                <ToggleButton fx:id="btnLeftEar" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="LEFT (X)" toggleGroup="$earGroup" />
-
-                                <Label style="-fx-font-weight: bold;" text="FREQUENCY (Hz)">
-                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
-                                </Label>
-                                <ChoiceBox fx:id="cbFrequency" prefHeight="45.0" prefWidth="130.0" />
-
-                                <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Play Sound">
-                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
-                                </Button>
-                                <Button fx:id="btnClear" mnemonicParsing="false" prefHeight="45.0" prefWidth="130.0" text="Clear" />
-                            </children>
-                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                            <Button fx:id="btnStartTest" style="-fx-font-weight: bold;" text="▶ Start Test" disable="true" />
+                        </HBox>
                     </children>
-                    <padding>
-                        <Insets top="40.0" />
-                    </padding>
                 </HBox>
+
+                <!-- 2. ALT KISIM: Sol Kontroller ve Sağ Grafik -->
+                <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+                    <children>
+
+                        <!-- SOL PANEL (Genişliği sabit: 300px) -->
+                        <VBox prefWidth="300.0" spacing="20.0">
+                            <children>
+
+                                <!-- Test Control Bölümü -->
+                                <VBox spacing="10.0" style="-fx-border-color: lightgray; -fx-padding: 15; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold; -fx-background-color: white; -fx-translate-y: -25;" text="Test Control" />
+                                        <HBox alignment="CENTER" spacing="10.0">
+                                            <Label text="Ear:" />
+                                            <ComboBox fx:id="cbEar" prefWidth="150.0" />
+                                        </HBox>
+                                        <Button fx:id="btnStop" maxWidth="Infinity" text="■ Stop" disable="true" />
+                                        <Button fx:id="btnClear" maxWidth="Infinity" text="Clear Results" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Current Presentation Bölümü -->
+                                <VBox spacing="10.0" style="-fx-border-color: lightgray; -fx-padding: 15; -fx-border-radius: 5;">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold; -fx-background-color: white; -fx-translate-y: -25;" text="Current Presentation" />
+
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <Label minWidth="120.0" text="Frequency:" />
+                                            <Label fx:id="lblCurrentFreq" minWidth="80.0" text="---" style="-fx-font-weight: bold;" />
+                                        </HBox>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <Label minWidth="120.0" text="Level (dB HL):" />
+                                            <Label fx:id="lblCurrentLevel" minWidth="80.0" text="---" style="-fx-font-weight: bold;" />
+                                        </HBox>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <Label minWidth="120.0" text="Direction:" />
+                                            <Label fx:id="lblCurrentDirection" minWidth="80.0" text="---" style="-fx-font-weight: bold;" />
+                                        </HBox>
+                                    </children>
+                                </VBox>
+
+                                <!-- Log Bölümü -->
+                                <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold;" text="Log" />
+                                        <TextArea fx:id="txtLog" editable="false" wrapText="true" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+
+                            </children>
+                        </VBox>
+
+                        <!-- SAĞ PANEL: Odyogram Grafiği -->
+                        <LineChart fx:id="chartOdyogram" animated="false" createSymbols="true" legendVisible="false" HBox.hgrow="ALWAYS">
+                            <xAxis>
+                                <NumberAxis side="TOP" fx:id="xAxis" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxis" side="LEFT" />
+                            </yAxis>
+                        </LineChart>
+
+                    </children>
+                </HBox>
+
             </children>
-        </HBox>
+        </VBox>
     </children>
 </AnchorPane>
